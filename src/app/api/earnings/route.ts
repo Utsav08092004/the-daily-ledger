@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import { CompanyEarningsReport } from '@/lib/types';
+import earningsData from '../../../../data/earnings.json';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,13 +10,7 @@ export async function GET(request: NextRequest) {
     const sector = searchParams.get('sector');
     const symbol = searchParams.get('symbol');
 
-    const filePath = path.join(process.cwd(), 'data', 'earnings.json');
-    if (!fs.existsSync(filePath)) {
-      return NextResponse.json({ success: true, count: 0, reports: [] });
-    }
-
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    let reports = JSON.parse(raw) as CompanyEarningsReport[];
+    let reports = ((earningsData as unknown) || []) as CompanyEarningsReport[];
 
     if (sector && sector !== 'All') {
       reports = reports.filter(r => r.sector.toLowerCase() === sector.toLowerCase());

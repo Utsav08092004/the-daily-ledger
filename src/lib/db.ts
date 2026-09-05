@@ -2,28 +2,39 @@ import fs from 'fs';
 import path from 'path';
 import { DailyEdition, Subscriber, JargonTerm, DailyFinanceMasterclass } from './types';
 
+// Direct compile-time bundle imports ensure zero ENOENT/EROFS file path issues on Vercel Serverless
+import initialEditions from '../../data/editions.json';
+import initialSubscribers from '../../data/subscribers.json';
+import initialDictionary from '../../data/dictionary.json';
+import initialMasterclasses from '../../data/finance-masterclasses.json';
+
 const DATA_DIR = path.join(process.cwd(), 'data');
 const EDITIONS_FILE = path.join(DATA_DIR, 'editions.json');
 const SUBSCRIBERS_FILE = path.join(DATA_DIR, 'subscribers.json');
-const DICTIONARY_FILE = path.join(DATA_DIR, 'dictionary.json');
-const MASTERCLASSES_FILE = path.join(DATA_DIR, 'finance-masterclasses.json');
 
-function ensureDataDir() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
+// In-memory runtime state that persists across serverless function invocations in the execution context
+let inMemoryEditions: DailyEdition[] = [...(initialEditions as unknown as DailyEdition[])];
+let inMemorySubscribers: Subscriber[] = [...(initialSubscribers as unknown as Subscriber[])];
+const inMemoryDictionary: JargonTerm[] = [...(initialDictionary as unknown as JargonTerm[])];
+const inMemoryMasterclasses: DailyFinanceMasterclass[] = [...(initialMasterclasses as unknown as DailyFinanceMasterclass[])];
+
+function safeDiskWrite(filePath: string, data: string): void {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(filePath, data, 'utf-8');
+  } catch (err) {
+    // Read-only filesystem in cloud serverless environment (e.g. Vercel).
+    // Safely ignored as in-memory state is preserved.
   }
 }
 
 export function getEditions(): DailyEdition[] {
-  ensureDataDir();
-  if (!fs.existsSync(EDITIONS_FILE)) return [];
-  try {
-    const raw = fs.readFileSync(EDITIONS_FILE, 'utf-8');
-    return JSON.parse(raw) as DailyEdition[];
-  } catch (error) {
-    console.error('Error reading editions.json:', error);
-    return [];
+  if (inMemoryEditions && inMemoryEditions.length > 0) {
+    return inMemoryEditions;
   }
+  return (initialEditions as unknown as DailyEdition[]) || [];
 }
 
 export function getEditionById(id: string): DailyEdition | null {
@@ -39,32 +50,26 @@ export function getLatestEdition(): DailyEdition | null {
 }
 
 export function saveEdition(edition: DailyEdition): void {
-  ensureDataDir();
-  const editions = getEditions();
+  const editions = [...getEditions()];
   const existingIndex = editions.findIndex(e => e.id === edition.id);
   if (existingIndex >= 0) {
     editions[existingIndex] = edition;
   } else {
     editions.unshift(edition);
   }
-  fs.writeFileSync(EDITIONS_FILE, JSON.stringify(editions, null, 2), 'utf-8');
+  inMemoryEditions = editions;
+  safeDiskWrite(EDITIONS_FILE, JSON.stringify(editions, null, 2));
 }
 
 export function getSubscribers(): Subscriber[] {
-  ensureDataDir();
-  if (!fs.existsSync(SUBSCRIBERS_FILE)) return [];
-  try {
-    const raw = fs.readFileSync(SUBSCRIBERS_FILE, 'utf-8');
-    return JSON.parse(raw) as Subscriber[];
-  } catch (error) {
-    console.error('Error reading subscribers.json:', error);
-    return [];
+  if (inMemorySubscribers && inMemorySubscribers.length > 0) {
+    return inMemorySubscribers;
   }
+  return (initialSubscribers as unknown as Subscriber[]) || [];
 }
 
 export function addSubscriber(email: string, name?: string, topics: string[] = ['Daily Morning Brief']): { success: boolean; isNew: boolean; subscriber: Subscriber } {
-  ensureDataDir();
-  const subscribers = getSubscribers();
+  const subscribers = [...getSubscribers()];
   const normalizedEmail = email.trim().toLowerCase();
   
   const existing = subscribers.find(s => s.email.toLowerCase() === normalizedEmail);
@@ -72,7 +77,8 @@ export function addSubscriber(email: string, name?: string, topics: string[] = [
     existing.active = true;
     if (topics.length) existing.topics = Array.from(new Set([...existing.topics, ...topics]));
     if (name) existing.name = name;
-    fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2), 'utf-8');
+    inMemorySubscribers = subscribers;
+    safeDiskWrite(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
     return { success: true, isNew: false, subscriber: existing };
   }
 
@@ -86,13 +92,13 @@ export function addSubscriber(email: string, name?: string, topics: string[] = [
   };
 
   subscribers.unshift(newSub);
-  fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2), 'utf-8');
+  inMemorySubscribers = subscribers;
+  safeDiskWrite(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
   return { success: true, isNew: true, subscriber: newSub };
 }
 
 export function updateSubscriberDispatch(emails: string[]): void {
-  ensureDataDir();
-  const subscribers = getSubscribers();
+  const subscribers = [...getSubscribers()];
   const emailSet = new Set(emails.map(e => e.toLowerCase()));
   const now = new Date().toISOString();
 
@@ -102,31 +108,16 @@ export function updateSubscriberDispatch(emails: string[]): void {
     }
   });
 
-  fs.writeFileSync(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2), 'utf-8');
+  inMemorySubscribers = subscribers;
+  safeDiskWrite(SUBSCRIBERS_FILE, JSON.stringify(subscribers, null, 2));
 }
 
 export function getDictionary(): JargonTerm[] {
-  ensureDataDir();
-  if (!fs.existsSync(DICTIONARY_FILE)) return [];
-  try {
-    const raw = fs.readFileSync(DICTIONARY_FILE, 'utf-8');
-    return JSON.parse(raw) as JargonTerm[];
-  } catch (error) {
-    console.error('Error reading dictionary.json:', error);
-    return [];
-  }
+  return inMemoryDictionary;
 }
 
 export function getMasterclasses(): DailyFinanceMasterclass[] {
-  ensureDataDir();
-  if (!fs.existsSync(MASTERCLASSES_FILE)) return [];
-  try {
-    const raw = fs.readFileSync(MASTERCLASSES_FILE, 'utf-8');
-    return JSON.parse(raw) as DailyFinanceMasterclass[];
-  } catch (error) {
-    console.error('Error reading finance-masterclasses.json:', error);
-    return [];
-  }
+  return inMemoryMasterclasses;
 }
 
 export function getDailyFinanceMasterclass(dateStr?: string): DailyFinanceMasterclass {
@@ -163,7 +154,6 @@ export function getDailyFinanceMasterclass(dateStr?: string): DailyFinanceMaster
     };
   }
 
-  // Calculate day-of-year or date hash to deterministically rotate topic every single calendar day
   const effectiveDate = dateStr ? new Date(dateStr) : new Date();
   const dayOfYear = Math.floor((effectiveDate.getTime() - new Date(effectiveDate.getFullYear(), 0, 0).getTime()) / 86400000);
   const index = Math.abs(dayOfYear) % masterclasses.length;
