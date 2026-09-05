@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-paper: #FAF7EE;
+    --bg-card: #FFFFFF;
+    --text-primary: #111827;
+    --text-secondary: #4B5563;
+    --border-color: #E2D9C8;
+    --accent-gold: #C59B27;
+    --accent-green: #059669;
+  }
+
+  body.theme-sepia {
+    --bg-paper: #F3ECE0;
+    --bg-card: #FAF6EE;
+    --text-primary: #292524;
+    --text-secondary: #57534E;
+    --border-color: #D6C8B4;
+  }
+
+  body.theme-dark {
+    --bg-paper: #0F172A;
+    --bg-card: #1E293B;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --border-color: #334155;
+  }
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.font-editorial {
+  font-family: 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
+}
+
+.paper-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.04), 0 1px 3px -1px rgba(0, 0, 0, 0.02);
+}
+
+.newspaper-rule {
+  border-top: 1px solid var(--border-color);
+}
+
+.newspaper-double-rule {
+  border-top: 3px double var(--border-color);
+}
+
+.newspaper-divider {
+  border-right: 1px solid var(--border-color);
+}
+
+/* Custom scrollbars for newspaper feel */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Drop cap for lead stories */
+.lead-dropcap::first-letter {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 3.8rem;
+  line-height: 0.85;
+  float: left;
+  margin-right: 0.75rem;
+  margin-top: 0.2rem;
+  font-weight: 900;
+  color: #0F172A;
+}
+
+body.theme-dark .lead-dropcap::first-letter {
+  color: #F8FAFC;
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}

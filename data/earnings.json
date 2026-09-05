@@ -1,0 +1,224 @@
+[
+  {
+    "id": "earn-reliance-q1",
+    "symbol": "RELIANCE",
+    "companyName": "Reliance Industries Limited",
+    "sector": "Conglomerates & Energy",
+    "quarter": "Q1 FY2026",
+    "reportDate": "July 2026",
+    "revenue": {
+      "reported": "₹2,36,217 Crore",
+      "expected": "₹2,33,500 Crore",
+      "growthYoY": "+11.5% YoY",
+      "status": "Beat"
+    },
+    "netProfitOrEps": {
+      "reported": "₹17,448 Crore",
+      "expected": "₹16,900 Crore",
+      "status": "Beat"
+    },
+    "stockReaction": {
+      "changePercent": "+1.85%",
+      "isPositive": true,
+      "currentPrice": "₹1,316"
+    },
+    "plainEnglishVerdict": "Reliance is firing on its consumer engines: Jio 5G customer base crossed 490 million with rising monthly tariff revenue (ARPU), while Reliance Retail opened 331 new stores across Tier-2 and Tier-3 Indian cities.",
+    "eli5Analogy": "Think of Reliance like an enormous family mall where millions of Indians pay their monthly mobile internet bill on the top floor, buy groceries and clothes on the ground floor, and fuel their vehicles at the petrol pump outside.",
+    "walletAndPortfolioImpact": {
+      "forShareholders": "Consistently robust EBITDA across Digital Services (Jio) and Consumer Retail reduces dependency on cyclical oil refining margins.",
+      "forMutualFundHolders": "Reliance carries a heavy ~9% weighting in Nifty 50 index funds; its profit growth provides strong support to almost every Indian mutual fund portfolio.",
+      "forConsumers": "Jio mobile tariff hikes may slightly increase your monthly mobile recharge bill by ₹20-50, while JioAirFiber expansion brings affordable high-speed home broadband.",
+      "actionTip": "Recharge annual mobile plans before upcoming scheduled telecom tariff revisions to lock in cheaper rates."
+    },
+    "keyHighlights": [
+      "Jio monthly average revenue per user (ARPU) climbed to ₹181.7 per month with 130M+ 5G subscribers.",
+      "Reliance Retail registered 296 million footfalls with revenue crossing ₹75,615 Crore in a single quarter.",
+      "New Energy giga-factories in Jamnagar on track to commission solar module manufacturing."
+    ]
+  },
+  {
+    "id": "earn-tcs-q1",
+    "symbol": "TCS",
+    "companyName": "Tata Consultancy Services Ltd.",
+    "sector": "IT Services & AI",
+    "quarter": "Q1 FY2026",
+    "reportDate": "July 2026",
+    "revenue": {
+      "reported": "₹62,613 Crore",
+      "expected": "₹62,100 Crore",
+      "growthYoY": "+5.4% YoY",
+      "status": "Beat"
+    },
+    "netProfitOrEps": {
+      "reported": "₹12,040 Crore",
+      "expected": "₹11,950 Crore",
+      "status": "Beat"
+    },
+    "stockReaction": {
+      "changePercent": "+2.40%",
+      "isPositive": true,
+      "currentPrice": "₹2,302"
+    },
+    "plainEnglishVerdict": "India's largest software exporter reported resilient deal wins ($8.3 Billion) and healthy operating profit margins (24.7%), proving that global enterprise demand for Indian tech talent remains unmatched.",
+    "eli5Analogy": "TCS is the master engineering team that runs the digital brains for the world's biggest airlines, banks, and retailers from tech hubs in Bengaluru, Mumbai, Chennai, and Hyderabad.",
+    "walletAndPortfolioImpact": {
+      "forShareholders": "World-class return on equity (ROE > 45%) and high dividend payout ratios make TCS one of the safest wealth compounders on Dalal Street.",
+      "forMutualFundHolders": "Acts as the defensive shock absorber in your Nifty IT and large-cap equity funds during global market volatility.",
+      "forConsumers": "Healthy IT services hiring and wage increments translate into stronger consumer spending across urban real estate, auto sales, and shopping malls.",
+      "actionTip": "A blue-chip candidate for long-term Indian equity portfolios; reinvest its quarterly interim dividends into fresh units."
+    },
+    "keyHighlights": [
+      "Total contract value (TCV) of new deal bookings reached a healthy $8.3 Billion.",
+      "Operating margin held rock-solid at 24.7% despite annual employee salary increments.",
+      "Declared an interim dividend of ₹10 per equity share."
+    ]
+  },
+  {
+    "id": "earn-hdfc-q1",
+    "symbol": "HDFCBANK",
+    "companyName": "HDFC Bank Limited",
+    "sector": "Banking & NBFC",
+    "quarter": "Q1 FY2026",
+    "reportDate": "July 2026",
+    "revenue": {
+      "reported": "₹82,710 Crore",
+      "expected": "₹81,500 Crore",
+      "growthYoY": "+14.2% YoY",
+      "status": "Beat"
+    },
+    "netProfitOrEps": {
+      "reported": "₹16,175 Crore",
+      "expected": "₹15,800 Crore",
+      "status": "Beat"
+    },
+    "stockReaction": {
+      "changePercent": "+2.15%",
+      "isPositive": true,
+      "currentPrice": "₹726.95"
+    },
+    "plainEnglishVerdict": "Following its mega-merger, HDFC Bank successfully stabilized its credit-deposit ratio by growing family savings deposits by 16.5% year-over-year while keeping bad loans exceptionally low.",
+    "eli5Analogy": "India's biggest private bank vault safely collected billions in new household deposits from across the nation and lent them out for home loans and business factories with almost zero defaulted loans.",
+    "walletAndPortfolioImpact": {
+      "forShareholders": "Credit-deposit ratio normalization is on track, setting the stage for steady 15-18% compound earnings growth over the next 3-5 years.",
+      "forMutualFundHolders": "Carries the single highest stock weighting (~11-13%) in the Nifty 50 and Bank Nifty indices; its performance dictates broad market sentiment.",
+      "forConsumers": "Competitive home loan interest rates (8.40% - 8.75%) and attractive Senior Citizen Fixed Deposit rates (up to 7.75%).",
+      "actionTip": "Compare Fixed Deposit rates across major private and PSU banks to optimize your 1-to-3 year emergency funds."
+    },
+    "keyHighlights": [
+      "Total retail and commercial deposits surged 16.5% YoY to ₹23.8 lakh crore.",
+      "Gross Non-Performing Assets (GNPA) stayed pristine at just 1.33%.",
+      "Added 85 new branches and expanded rural reach to cover 92% of India's pin codes."
+    ]
+  },
+  {
+    "id": "earn-tatamotors-q1",
+    "symbol": "TATAMOTORS",
+    "companyName": "Tata Motors Limited",
+    "sector": "Auto & EV",
+    "quarter": "Q1 FY2026",
+    "reportDate": "August 2026",
+    "revenue": {
+      "reported": "₹1,08,048 Crore",
+      "expected": "₹1,06,500 Crore",
+      "growthYoY": "+5.7% YoY",
+      "status": "Beat"
+    },
+    "netProfitOrEps": {
+      "reported": "₹5,566 Crore",
+      "expected": "₹5,100 Crore",
+      "status": "Beat"
+    },
+    "stockReaction": {
+      "changePercent": "+3.10%",
+      "isPositive": true,
+      "currentPrice": "₹1,085"
+    },
+    "plainEnglishVerdict": "Record luxury profitability at Jaguar Land Rover (JLR) paired with over 70% passenger Electric Vehicle (EV) market share in India propelled Tata Motors to record quarterly profits.",
+    "eli5Analogy": "Tata Motors is winning at both ends of the spectrum: high-end Range Rovers are in massive demand worldwide, while Tata Nexon EV and Punch EV rule city traffic in India.",
+    "walletAndPortfolioImpact": {
+      "forShareholders": "Aggressive debt reduction has brought automotive net debt to near zero, unlocking substantial future dividend capacity.",
+      "forMutualFundHolders": "Strong performer in auto and manufacturing thematic mutual funds.",
+      "forConsumers": "Electric cars are becoming cheaper with faster charging networks opening on national highways.",
+      "actionTip": "Calculate total 5-year cost of ownership (electricity ₹1.2/km vs petrol ₹7.5/km) before purchasing a new family car."
+    },
+    "keyHighlights": [
+      "JLR luxury EBIT margins expanded to 8.9%, generating £729 million in free cash flow.",
+      "Domestic EV penetration rose to 13% of total Tata passenger vehicle sales.",
+      "Demerger into two listed entities (Commercial Vehicles & Passenger/EV Cars) on track for shareholder value unlocking."
+    ]
+  },
+  {
+    "id": "earn-zomato-q1",
+    "symbol": "ZOMATO",
+    "companyName": "Zomato Ltd. (Blinkit)",
+    "sector": "Quick Commerce & Tech",
+    "quarter": "Q1 FY2026",
+    "reportDate": "August 2026",
+    "revenue": {
+      "reported": "₹4,206 Crore",
+      "expected": "₹3,950 Crore",
+      "growthYoY": "+74% YoY",
+      "status": "Beat"
+    },
+    "netProfitOrEps": {
+      "reported": "₹253 Crore",
+      "expected": "₹215 Crore",
+      "status": "Beat"
+    },
+    "stockReaction": {
+      "changePercent": "+4.80%",
+      "isPositive": true,
+      "currentPrice": "₹262"
+    },
+    "plainEnglishVerdict": "Blinkit quick commerce has turned into an explosive growth machine: 10-minute grocery and electronics deliveries grew 130% YoY, driving overall corporate net profits higher for the 5th straight quarter.",
+    "eli5Analogy": "Instead of walking to the neighbourhood corner shop for milk, bread, or phone chargers, millions of Indians get it delivered to their doorstep in 10 minutes, and the business has finally figured out how to make clean profits doing it.",
+    "walletAndPortfolioImpact": {
+      "forShareholders": "Quick commerce is structurally disrupting traditional retail and e-commerce supply chains across major Indian metros.",
+      "forMutualFundHolders": "Now an increasingly prominent constituent in Nifty Next 50 and tech thematic funds.",
+      "forConsumers": "Expect more local dark stores and wider catalog availability (electronics, books, beauty) within 10-minute delivery radius.",
+      "actionTip": "Compare quick commerce platform delivery surcharges against weekly local mandi or wholesale supermarket shopping."
+    },
+    "keyHighlights": [
+      "Blinkit dark store network reached 639 stores with plans to scale to 2,000 stores across India.",
+      "Gross Order Value (GOV) across food delivery and quick commerce surged to ₹15,350 Crore in Q1.",
+      "Food delivery EBITDA margin expanded to 3.4% of GOV."
+    ]
+  },
+  {
+    "id": "earn-itc-q1",
+    "symbol": "ITC",
+    "companyName": "ITC Limited",
+    "sector": "Consumer & FMCG",
+    "quarter": "Q1 FY2026",
+    "reportDate": "August 2026",
+    "revenue": {
+      "reported": "₹18,220 Crore",
+      "expected": "₹17,850 Crore",
+      "growthYoY": "+7.2% YoY",
+      "status": "Beat"
+    },
+    "netProfitOrEps": {
+      "reported": "₹4,917 Crore",
+      "expected": "₹4,850 Crore",
+      "status": "Beat"
+    },
+    "stockReaction": {
+      "changePercent": "+1.40%",
+      "isPositive": true,
+      "currentPrice": "₹498"
+    },
+    "plainEnglishVerdict": "Staple consumer brands (Aashirvaad Aata, Sunfeast, Bingo, YiPPee!) posted double-digit growth, while the upcoming Hotels business demerger will unlock pure-play hospitality value.",
+    "eli5Analogy": "From the wheat flour and biscuits in your kitchen to the luxury hotel where weddings happen, ITC touches almost every Indian household every single day while generating massive cash flows.",
+    "walletAndPortfolioImpact": {
+      "forShareholders": "High dividend yield (~3-3.5%) and resilient non-cyclical cash flows provide premier defensive wealth protection.",
+      "forMutualFundHolders": "Core FMCG anchor in large-cap and dividend-yield mutual funds.",
+      "forConsumers": "Stable agricultural supply chains keep kitchen staple prices (wheat, spices, biscuits) affordable.",
+      "actionTip": "A top-tier defensive holding for long-term dividend reinvestment in Indian equity portfolios."
+    },
+    "keyHighlights": [
+      "FMCG non-cigarette revenue grew 8.3% driven by Aashirvaad staples and Sunfeast biscuits.",
+      "Hotels business demerger scheme approved by shareholders and moving toward separate listing.",
+      "Agri-business revenue expanded 22% due to value-added agricultural exports."
+    ]
+  }
+]

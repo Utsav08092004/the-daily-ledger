@@ -1,0 +1,74 @@
+[
+  {
+    "term": "RBI Repo Rate",
+    "pronunciation": "REE-poh rayt",
+    "formalDefinition": "The benchmark interest rate at which the Reserve Bank of India (RBI) lends money to commercial banks in India.",
+    "plainEnglish": "The wholesale price of borrowing money in India. When the RBI Governor raises or cuts this rate, your home loan EMI, car loan rate, and bank Fixed Deposit (FD) interest change directly.",
+    "analogy": "Imagine a wholesale mandi supplying wheat to city grocery stores. If the mandi raises wholesale wheat prices, your local kirana shop must charge you more for a bag of flour.",
+    "whyItMatters": "Directly sets your External Benchmark Lending Rate (EBLR) on home loans and determines if bank FDs offer 6.5% or 7.5% annual returns.",
+    "example": "When the RBI maintains the repo rate at 6.50%, your home loan interest stays anchored at around 8.40% to 8.75%."
+  },
+  {
+    "term": "LTCG Tax (Long-Term Capital Gains)",
+    "pronunciation": "el-tee-see-jee taks",
+    "formalDefinition": "Tax levied on profits generated from selling equity shares or equity mutual funds held for more than 12 months.",
+    "plainEnglish": "Tax on your stock market or mutual fund profits when you hold investments for over a year. Under current tax laws, equity gains above ₹1.25 Lakh per financial year are taxed at 12.5%.",
+    "analogy": "If you plant a mango tree and harvest delicious mangoes after a few seasons, the government allows you to keep the first ₹1.25 Lakh worth of fruit tax-free every year, and asks for a 12.5% slice of whatever fruit you harvest above that.",
+    "whyItMatters": "Crucial for planning your mutual fund redemptions, equity portfolio harvesting, and retirement withdrawals.",
+    "example": "If you make ₹2,25,000 profit on mutual funds held for 3 years, the first ₹1,25,000 is 100% tax-free, and you pay 12.5% tax only on the remaining ₹1,00,000 (i.e. ₹12,500 tax)."
+  },
+  {
+    "term": "Systematic Investment Plan (SIP)",
+    "pronunciation": "es-eye-pee",
+    "formalDefinition": "A facility offered by Indian mutual funds that allows investors to invest a fixed sum of money at regular periodic intervals into a mutual fund scheme.",
+    "plainEnglish": "Automatically investing a fixed amount (e.g. ₹1,000, ₹5,000, or ₹25,000) every month on salary day into a diversified index or mutual fund, regardless of whether Nifty is high or low.",
+    "analogy": "Like buying ₹500 worth of petrol every week: when petrol is cheap, your vehicle tank gets more liters; when petrol is expensive, it gets fewer liters. Over 10 years, your average cost per liter smooths out beautifully without you stressing over market swings.",
+    "whyItMatters": "Removes the anxiety of trying to time Dalal Street tops and bottoms, and turns the power of compounding into multi-crore wealth.",
+    "example": "A monthly SIP of ₹10,000 in a Nifty 50 index fund at 12% CAGR grows to over ₹1 Crore in 20 years, with only ₹24 Lakhs deposited by you."
+  },
+  {
+    "term": "Sovereign Gold Bonds (SGB)",
+    "pronunciation": "sov-rin gold bond",
+    "formalDefinition": "Government securities denominated in grams of gold issued by the Reserve Bank of India on behalf of the Government of India.",
+    "plainEnglish": "Paperless digital gold issued by the RBI that gives you the exact market price appreciation of 24-karat gold PLUS an extra 2.50% annual interest credited directly to your bank account, with zero making charges and zero GST.",
+    "analogy": "Like owning pure gold that magically pays you yearly rent, doesn't need a bank locker fee, and cannot be stolen by thieves.",
+    "whyItMatters": "The single most cost-effective way to invest in gold in India compared to physical jewelry that loses 15-25% in making charges and 3% in GST.",
+    "example": "If gold prices rise from ₹70,000 to ₹1,00,000 over 8 years, you get the full capital appreciation tax-free upon maturity, plus 2.5% cash interest paid every 6 months."
+  },
+  {
+    "term": "Demat & Trading Account (CDSL / NSDL)",
+    "pronunciation": "dee-mat uh-kownt",
+    "formalDefinition": "A dematerialized account that converts physical share certificates into electronic format, maintained by government-regulated depositories (CDSL / NSDL) under SEBI.",
+    "plainEnglish": "A secure digital locker for your shares, bonds, mutual funds, and ETFs. The Trading account lets you buy/sell, while the Demat account safely stores the ownership certificates.",
+    "analogy": "Your Demat account is like your digital wardrobe, and your Trading account is the shopping cart you push in the store.",
+    "whyItMatters": "Mandatory to invest in Indian stock markets. Supervised by SEBI so your shares remain 100% safe even if your stock broker shuts down.",
+    "example": "When you buy 10 shares of Tata Motors or Reliance, they settle electronically into your CDSL/NSDL Demat account within 24 hours (T+1 settlement)."
+  },
+  {
+    "term": "Public Provident Fund (PPF)",
+    "pronunciation": "pee-pee-ef",
+    "formalDefinition": "A 15-year government-backed long-term savings scheme in India with sovereign safety and tax benefits under the EEE (Exempt-Exempt-Exempt) category.",
+    "plainEnglish": "A risk-free government savings scheme where your deposits (up to ₹1.5 Lakh/year), the annual compound interest (7.1%), and the final maturity amount are all 100% tax-free.",
+    "analogy": "A bulletproof government-guaranteed wealth locker where tax collectors are legally never allowed to touch a single rupee.",
+    "whyItMatters": "One of the best safe debt instruments for conservative Indian savers building a child's education fund or retirement cushion.",
+    "example": "Depositing ₹1.5 Lakh every April in PPF for 15 years yields over ₹40 Lakhs completely tax-free at maturity."
+  },
+  {
+    "term": "Securities Transaction Tax (STT)",
+    "pronunciation": "es-tee-tee",
+    "formalDefinition": "A direct tax levied on every purchase and sale of securities listed on recognized Indian stock exchanges like NSE and BSE.",
+    "plainEnglish": "A small automatic government fee charged on every share or mutual fund trade executed on the stock exchange.",
+    "analogy": "Like a tiny toll booth at the entrance and exit of the expressway; whenever you buy or sell shares, a micro-percentage is paid to the government treasury.",
+    "whyItMatters": "Collected automatically by your broker; ensures seamless compliance without having to file separate paperwork.",
+    "example": "On delivery trades in Indian equities, an STT of 0.1% is automatically deducted on the turnover value."
+  },
+  {
+    "term": "Indexation Benefit",
+    "pronunciation": "in-deks-ay-shun ben-ih-fit",
+    "formalDefinition": "An adjustment of the purchase price of an asset (like real estate or gold) for inflation using the government's Cost Inflation Index (CII).",
+    "plainEnglish": "Inflating your original purchase cost in the government's eyes so you only pay capital gains tax on real profit above inflation, rather than nominal profit.",
+    "analogy": "If you bought an apartment for ₹20 Lakh in 2005 and sell it for ₹60 Lakh in 2026, indexation recalculates your purchase cost to ₹50 Lakh to reflect 20 years of inflation, so you only pay tax on ₹10 Lakh profit.",
+    "whyItMatters": "Massively reduces the tax burden when selling ancestral properties, real estate, or unlisted assets in India.",
+    "example": "Taxpayers can choose between 12.5% LTCG without indexation or 20% LTCG with indexation on properties acquired prior to July 2024."
+  }
+]

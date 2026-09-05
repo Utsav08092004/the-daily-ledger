@@ -1,0 +1,10 @@
+﻿node_modules/
+.next/
+mingit/
+cloudflared.exe
+*.zip
+*.log
+tunnel-*
+public-url.txt
+.env*.local
+.DS_Store

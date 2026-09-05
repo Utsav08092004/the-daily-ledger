@@ -1,0 +1,49 @@
+[
+  {
+    "id": "sub_1787514688039_il27b",
+    "email": "utsav5306@gmail.com",
+    "name": "",
+    "topics": [
+      "Daily Morning Brief"
+    ],
+    "subscribedAt": "2026-08-23T19:51:28.039Z",
+    "active": true
+  },
+  {
+    "id": "sub_1787343951489_qmtr4",
+    "email": "newreader@example.com",
+    "name": "Utsav",
+    "topics": [
+      "Daily Morning Brief",
+      "Personal Finance"
+    ],
+    "subscribedAt": "2026-08-21T20:25:51.489Z",
+    "active": true,
+    "lastDispatchedAt": "2026-08-21T20:25:51.520Z"
+  },
+  {
+    "id": "sub_demo_1",
+    "email": "reader@financialbrief.com",
+    "name": "Alex Mercer",
+    "topics": [
+      "Daily Morning Brief",
+      "Markets & Investing",
+      "Personal Finance"
+    ],
+    "subscribedAt": "2026-08-01T08:00:00.000Z",
+    "active": true,
+    "lastDispatchedAt": "2026-08-21T20:25:51.520Z"
+  },
+  {
+    "id": "sub_demo_2",
+    "email": "wealthbuilder@outlook.com",
+    "name": "Sarah Chen",
+    "topics": [
+      "Daily Morning Brief",
+      "Real Estate & Mortgages"
+    ],
+    "subscribedAt": "2026-08-15T09:30:00.000Z",
+    "active": true,
+    "lastDispatchedAt": "2026-08-21T20:25:51.520Z"
+  }
+]
