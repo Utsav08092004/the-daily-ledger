@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coverage Desk — Institutional Equity Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+<style>
+:root{
+  --paper:#EDEAE1;
+  --paper-raised:#F6F3EC;
+  --ink:#20242B;
+  --ink-soft:#5B5F6B;
+  --hairline:#C9C0AE;
+  --gold:#B4841F;
+  --buy:#2F6B4F;
+  --hold:#A66A1E;
+  --sell:#A13F2C;
+  --avoid:#6B4A3A;
+  --font-display:'Fraunces', serif;
+  --font-body:'IBM Plex Sans', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+#app{max-width:920px;margin:0 auto;padding:0 24px 80px;}
+.masthead{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px 16px;padding:36px 0 18px;border-bottom:2px solid var(--ink);}
+.masthead h1{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,4vw,34px);letter-spacing:0.01em;margin:0;}
+.masthead .tagline{font-size:14px;color:var(--ink-soft);margin-top:4px;}
+.masthead .dateline{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);white-space:nowrap;}
+.api-bar{margin:16px 0 24px;padding:12px 16px;background:var(--paper-raised);border:1px solid var(--hairline);border-radius:4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;font-size:13px;}
+.api-bar label{font-weight:600;display:flex;align-items:center;gap:6px;}
+.api-bar input[type="password"]{flex:1;min-width:220px;padding:6px 10px;border:1px solid var(--hairline);border-radius:3px;font-family:var(--font-mono);font-size:12px;background:#fff;}
+.api-bar select{padding:6px 8px;border:1px solid var(--hairline);border-radius:3px;font-size:12px;background:#fff;}
+#intake{padding:24px 0;}
+.intake-card{max-width:680px;}
+.intake-card label{display:block;font-size:15px;margin-bottom:10px;color:var(--ink);font-weight:600;}
+textarea#question{width:100%;min-height:96px;padding:14px 16px;font-family:var(--font-body);font-size:16px;color:var(--ink);background:var(--paper-raised);border:1.5px solid var(--ink);border-radius:2px;resize:vertical;}
+textarea#question:focus{outline:3px solid var(--gold);outline-offset:1px;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px;}
+.chip{font-family:var(--font-body);font-size:13px;padding:7px 12px;border:1px solid var(--hairline);border-radius:20px;background:transparent;color:var(--ink-soft);cursor:pointer;transition:all 0.15s ease;}
+.chip:hover{border-color:var(--ink);color:var(--ink);background:var(--paper-raised);}
+.action-buttons{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+.btn-primary{font-family:var(--font-body);font-weight:600;font-size:15px;padding:12px 24px;background:var(--ink);color:var(--paper);border:none;border-radius:2px;cursor:pointer;}
+.btn-primary:hover{background:#3a4050;}
+.btn-primary:disabled{opacity:0.55;cursor:default;}
+.btn-demo{font-family:var(--font-body);font-weight:600;font-size:14px;padding:11px 18px;background:transparent;color:var(--buy);border:1.5px solid var(--buy);border-radius:2px;cursor:pointer;}
+.btn-demo:hover{background:#E6F4EA;}
+.btn-secondary{margin-top:32px;font-family:var(--font-body);font-size:14px;padding:10px 16px;background:transparent;color:var(--ink);border:1.5px solid var(--ink);border-radius:2px;cursor:pointer;}
+.how-it-works{margin-top:36px;font-size:13.5px;color:var(--ink-soft);border-top:1px solid var(--hairline);padding-top:18px;}
+.how-it-works summary{cursor:pointer;font-weight:600;color:var(--ink);}
+.how-it-works ol{padding-left:20px;}
+.disclaimer{margin-top:24px;font-size:12.5px;color:var(--ink-soft);border-left:3px solid var(--hairline);padding:10px 14px;background:var(--paper-raised);}
+#pipeline{padding:40px 0;}
+.scope-row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--hairline);font-size:14.5px;}
+.scope-row .step-extra{color:var(--ink-soft);font-size:13px;margin-left:auto;text-align:right;max-width:60%;}
+.desks-grid{display:grid;grid-template-columns:repeat(var(--cols,1),1fr);gap:0;margin-top:8px;}
+.desk-column{border-left:1px solid var(--hairline);padding:0 18px;}
+.desk-column:first-child{border-left:none;padding-left:0;}
+.desk-company{font-family:var(--font-display);font-size:17px;font-weight:600;margin:14px 0 10px;}
+.desk-company .ticker{font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);font-weight:400;}
+.desk-steps{list-style:none;margin:0;padding:0;}
+.desk-step{border-bottom:1px solid var(--hairline);}
+.desk-step:last-child{border-bottom:none;}
+.step-row{width:100%;display:flex;align-items:center;gap:10px;background:none;border:none;padding:10px 0;text-align:left;font-family:var(--font-body);font-size:13.5px;color:var(--ink-soft);cursor:default;}
+.step-row:not([disabled]){cursor:pointer;color:var(--ink);}
+.step-row:not([disabled]):hover .step-label{text-decoration:underline;}
+.step-marker{font-family:var(--font-mono);width:16px;flex:none;text-align:center;color:var(--ink-soft);}
+.step-marker.running{color:var(--gold);animation:pulse 1.1s ease-in-out infinite;}
+.step-marker.done{color:var(--buy);}
+.step-marker.error{color:var(--sell);}
+.step-label{flex:1;}
+.step-extra{font-family:var(--font-mono);font-size:11.5px;color:var(--ink-soft);white-space:nowrap;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.25;}}
+.step-panel{padding:0 0 14px 26px;font-size:13.5px;color:var(--ink);}
+.fatal-error{padding:16px;color:var(--sell);background:#FDF2F2;border:1px solid #F8B4B4;border-radius:4px;margin-top:16px;}
+#report{padding:40px 0;}
+.report-head h2{font-family:var(--font-display);font-size:24px;margin:0 0 6px;}
+.report-head .scope-note{color:var(--ink-soft);font-size:14px;margin:0 0 24px;}
+.comparison-card{background:var(--paper-raised);border:1px solid var(--hairline);border-radius:2px;padding:20px 22px;margin-bottom:28px;}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--ink);flex-wrap:wrap;}
+.tab{font-family:var(--font-body);font-size:14px;padding:10px 16px;background:none;border:none;color:var(--ink-soft);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;}
+.tab.active{color:var(--ink);border-bottom-color:var(--gold);font-weight:600;}
+.note{padding-top:26px;}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:20px 36px;padding:24px 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin-bottom:28px;}
+.hero-rec{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1;}
+.hero--buy .hero-rec{color:var(--buy);}
+.hero--hold .hero-rec{color:var(--hold);}
+.hero--sell .hero-rec{color:var(--sell);}
+.hero--avoid .hero-rec{color:var(--avoid);}
+.hero-stats{display:flex;flex-wrap:wrap;gap:18px 28px;margin:0;}
+.hero-stats > div{display:flex;flex-direction:column;}
+.hero-stats dt{font-size:11.5px;text-transform:uppercase;letter-spacing:0.04em;color:var(--ink-soft);margin-bottom:2px;}
+.hero-stats dd{margin:0;font-size:16px;}
+.mono{font-family:var(--font-mono);}
+.note-section{padding:22px 0;border-bottom:1px solid var(--hairline);}
+.note-section h3{font-family:var(--font-display);font-size:18px;margin:0 0 10px;}
+.note-section table{border-collapse:collapse;width:100%;font-size:13.5px;margin:10px 0;}
+.note-section th,.note-section td{border:1px solid var(--hairline);padding:6px 9px;text-align:left;}
+.note-section th{background:var(--paper-raised);}
+.note-section--redteam{background:var(--paper-raised);padding:20px;border-radius:4px;border-left:4px solid var(--sell);}
+.note-section--verdict{border-bottom:none;background:#F6FBF7;padding:20px;border-radius:4px;border-left:4px solid var(--buy);}
+.desk-notes{margin-top:20px;font-size:13.5px;}
+.desk-notes summary{cursor:pointer;font-weight:600;padding:10px 0;}
+.desk-note{padding:10px 0 10px 4px;border-top:1px solid var(--hairline);}
+@media (max-width:720px){
+  .desks-grid{grid-template-columns:1fr;}
+  .desk-column{border-left:none;border-top:1px solid var(--hairline);padding:14px 0 0;}
+  .desk-column:first-child{border-top:none;}
+  .hero{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="masthead">
+    <div>
+      <h1>Coverage Desk</h1>
+      <div class="tagline">Institutional equity research director & specialist desks</div>
+    </div>
+    <div class="dateline" id="dateline"></div>
+  </header>
+
+  <div class="api-bar">
+    <label for="api-key-input">🔑 Anthropic API Key:</label>
+    <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." autocomplete="off">
+    <label for="model-select">Model:</label>
+    <select id="model-select">
+      <option value="claude-3-7-sonnet-20250219" selected>Claude 3.7 Sonnet (Recommended)</option>
+      <option value="claude-3-5-sonnet-20241022">Claude 3.5 Sonnet</option>
+      <option value="claude-3-5-haiku-20241022">Claude 3.5 Haiku</option>
+    </select>
+    <button class="chip" id="save-key-btn" type="button" style="padding:5px 12px;font-size:12px;">Save Key</button>
+    <span id="key-status" style="font-size:12px;color:var(--ink-soft);"></span>
+  </div>
+
+  <main>
+    <section id="intake">
+      <div class="intake-card">
+        <label for="question">What company or investment theme do you want researched?</label>
+        <textarea id="question" placeholder="e.g. What's the recommendation on Reliance Industries?"></textarea>
+        <div class="chips">
+          <button class="chip" type="button">What's the recommendation on Reliance Industries?</button>
+          <button class="chip" type="button">Should I buy Tata Motors?</button>
+          <button class="chip" type="button">Which Indian EV company is the best investment?</button>
+          <button class="chip" type="button">Compare HDFC Bank, ICICI Bank and Axis Bank</button>
+        </div>
+        <div class="action-buttons">
+          <button class="btn-primary" id="begin-btn" type="button">Begin live research</button>
+          <button class="btn-demo" id="demo-btn" type="button">⚡ Instant Demo Mode (No Key Needed)</button>
+        </div>
+        <details class="how-it-works">
+          <summary>How this works</summary>
+          <p>A Research Director scopes your question, then delegates to specialist desks — fundamentals, industry, management, event &amp; risk, financial modeling and valuation — followed by an independent Red Team that tries to break the thesis, and an Editor/QA pass. The Director then synthesizes the final note.</p>
+        </details>
+        <div class="disclaimer">AI-generated equity research for informational purposes only — not investment advice. Verify figures against primary regulatory filings before acting.</div>
+      </div>
+    </section>
+
+    <section id="pipeline" hidden></section>
+    <section id="report" hidden></section>
+  </main>
+</div>
+<script>
+let COMPANIES = [];
+let AGENT_OUTPUTS = {};
+let IS_DEMO_MODE = false;
+
+const STEP_ORDER = ['fundamental','industry','management','eventrisk','financial_model','valuation','red_team','qa','synthesis'];
+const STEP_LABELS = {
+  fundamental: 'Fundamentals desk',
+  industry: 'Industry & competitive desk',
+  management: 'Management & governance desk',
+  eventrisk: 'Event, catalyst & risk desk',
+  financial_model: 'Financial modeling desk',
+  valuation: 'Valuation desk',
+  red_team: 'Red team',
+  qa: 'Editor / QA',
+  synthesis: 'Research Director — final note'
+};
+
+const HOUSE_RULES = "House rules:\n" +
+"- Never fabricate financial figures, quotes, or estimates.\n" +
+"- Tag claims as [FACT], [GUIDANCE], [ESTIMATE], [ASSUMPTION], or [INFERENCE].\n" +
+"- Prefer primary annual reports and exchange filings.\n" +
+"- Be specific, numerical, structured, and under ~450 words.";
+
+const SYNTH_SYSTEM = "You are the Research Director of an institutional equity research desk, writing the final research note. You have the full internal research package from your team, including the Editor/QA's flagged issues. Resolve every QA concern. Write in the voice of professional institutional research: analytical, specific, numerically grounded, skeptical, decision-oriented. Respond with ONLY a valid JSON object — no markdown code fences, no commentary before or after.";
+
+const CALL1_TASK = 'Produce a JSON object with: {"recommendation": "BUY"|"HOLD"|"SELL"|"AVOID", "current_price": "string with currency", "target_price": "string with currency", "upside_pct": "string, e.g. +18%", "horizon": "12-18 months", "confidence": "HIGH"|"MEDIUM"|"LOW", "thesis": ["3-4 bullet points"], "market_missing": "1-2 sentences", "why_this_could_work": "markdown summary"}';
+const CALL2_TASK = 'Produce a JSON object with: {"financial_outlook": "markdown table and commentary on Revenue, EBITDA margin, PAT, FCF", "valuation": "markdown on DCF/SOTP multiples, peer comparison, and implied fair value"}';
+const CALL3_TASK = 'Produce a JSON object with: {"industry_position": "markdown on industry structure, competitive moat, market share vs peers", "management_governance": "markdown on capital allocation, management execution, and governance track record"}';
+const CALL4_TASK = 'Produce a JSON object with: {"catalysts": "markdown list of near/medium-term catalysts", "risks": "markdown list of top investment risks", "scenarios": "markdown table comparing Bull / Base / Bear"}';
+const CALL5_TASK = 'Produce a JSON object with: {"rating_change_conditions": "markdown on triggers for rating upgrade or downgrade", "red_team_conclusion": "markdown with the strongest bear argument", "final_verdict": "markdown summary verdict and return profile"}';
+
+function escapeHtml(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function mdToHtml(text){
+  const t = text || '';
+  try{
+    if (window.marked){
+      const raw = typeof marked.parse === 'function' ? marked.parse(t) : marked(t);
+      return window.DOMPurify ? DOMPurify.sanitize(raw) : raw;
+    }
+  }catch(e){}
+  return '<p>' + escapeHtml(t).replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>') + '</p>';
+}
+
+function extractJson(text){
+  let t = (text || '').trim().replace(/^```(?:json)?/i,'').replace(/```$/,'').trim();
+  const start = t.indexOf('{'), end = t.lastIndexOf('}');
+  if (start === -1 || end === -1 || end < start) throw new Error('No JSON object found in response');
+  try {
+    return JSON.parse(t.slice(start, end + 1));
+  } catch(e) {
+    return JSON.parse(t.slice(start, end + 1).replace(/,\s*([\]}])/g, '$1'));
+  }
+}
+
+async function callAgent(promptObj){
+  if (IS_DEMO_MODE) {
+    await new Promise(r => setTimeout(r, 400));
+    return generateDemoResponse(promptObj);
+  }
+
+  const apiKeyInput = document.getElementById('api-key-input');
+  const apiKey = (apiKeyInput ? apiKeyInput.value.trim() : '') || localStorage.getItem('anthropic_api_key') || '';
+  
+  if (!apiKey) {
+    throw new Error('Anthropic API Key is missing. Please enter your key in the top box (sk-ant-...) or click "Instant Demo Mode".');
+  }
+
+  const selectedModel = document.getElementById('model-select')?.value || 'claude-3-7-sonnet-20250219';
+
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({
+      model: selectedModel,
+      max_tokens: 1000,
+      system: promptObj.system,
+      messages: [{ role: 'user', content: promptObj.user }]
+    })
+  });
+
+  if (!res.ok){
+    let msg = 'HTTP ' + res.status;
+    try {
+      const errBody = await res.json();
+      if (errBody?.error?.message) msg = errBody.error.message;
+    }catch(e){}
+    if (res.status === 401) msg = 'Invalid Anthropic API Key (HTTP 401). Please verify your key.';
+    throw new Error(msg);
+  }
+
+  const data = await res.json();
+  const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n\n').trim();
+  if (!text) throw new Error('Empty response from model');
+  return text;
+}
+
+function generateDemoResponse(promptObj) {
+  const u = (promptObj.user || '').toLowerCase();
+  const isReliance = u.includes('reliance');
+  const isTata = u.includes('tata');
+  const isHdfc = u.includes('hdfc');
+
+  const cName = isReliance ? "Reliance Industries Ltd" : isTata ? "Tata Motors Ltd" : isHdfc ? "HDFC Bank Ltd" : "Target Enterprise Ltd";
+  const ticker = isReliance ? "RELIANCE.NS" : isTata ? "TATAMOTORS.NS" : isHdfc ? "HDFCBANK.NS" : "NSE:TARGET";
+  const currPrice = isReliance ? "₹3,024" : isTata ? "₹1,042" : isHdfc ? "₹1,648" : "₹2,450";
+  const targetPrice = isReliance ? "₹3,480" : isTata ? "₹1,250" : isHdfc ? "₹1,950" : "₹2,950";
+
+  if (promptObj.system.includes('JSON')) {
+    if (u.includes('classify the request') || promptObj.system.includes('Plan the assignment')) {
+      return JSON.stringify({
+        mode: "company",
+        companies: [{ name: cName, ticker: ticker, exchange: "NSE" }],
+        research_question: "What is the institutional investment recommendation for " + cName + "?",
+        scope_notes: "Evaluated across operating cash flow conversion, upcoming business demergers, and capital efficiency."
+      });
+    }
+    if (u.includes('call1') || promptObj.user.includes('recommendation')) {
+      return JSON.stringify({
+        recommendation: "BUY",
+        current_price: currPrice,
+        target_price: targetPrice,
+        upside_pct: "+18.2%",
+        horizon: "12-18 months",
+        confidence: "HIGH",
+        thesis: [
+          "Dominant market leadership across consumer and core revenue drivers",
+          "Capex intensity peaking, unlocking substantial free cash flow (FCF)",
+          "Value-unlocking optionality via standalone business demergers",
+          "Low leverage with net debt-to-EBITDA well under 1.2x"
+        ],
+        market_missing: "The market is underappreciating operating leverage kicking in as heavy past investments transition into high-margin cash flows.",
+        why_this_could_work: "Proven compounding management track record with industry-leading Return on Capital Employed (ROCE)."
+      });
+    }
+    if (u.includes('call2') || promptObj.user.includes('financial_outlook')) {
+      return JSON.stringify({
+        financial_outlook: "| Metric | FY24 (Actual) | FY25 (Est.) | FY26 (Forecast) |\n| :--- | :--- | :--- | :--- |\n| **Revenue (₹ Cr)** | 9,01,000 | 10,24,000 | 11,85,000 |\n| **EBITDA Margin** | 18.1% | 19.4% | 20.8% |\n| **PAT (₹ Cr)** | 69,600 | 82,400 | 97,100 |\n| **Free Cash Flow** | ₹14,200 Cr | ₹32,000 Cr | ₹54,000 Cr |",
+        valuation: "**Valuation Framework**:\n- Blended SOTP & DCF fair value: " + targetPrice + "\n- Implies 24.5x FY26E P/E, comfortably below 5-year peak multiples of 29x."
+      });
+    }
+    if (u.includes('call3') || promptObj.user.includes('industry_position')) {
+      return JSON.stringify({
+        industry_position: "**Competitive Moat**:\n- #1 undisputed domestic market share.\n- High pricing power backed by national supply chain and direct customer distribution.",
+        management_governance: "**Governance & Track Record**:\n- Exemplary capital allocation compounding history.\n- Tier-1 audit controls and clean disclosure standards."
+      });
+    }
+    if (u.includes('call4') || promptObj.user.includes('catalysts')) {
+      return JSON.stringify({
+        catalysts: "- **H2 FY25**: Tariff & price realization hikes expanding margins by 200-250 bps.\n- **FY26**: Potential subsidiary demerger listing unlocking hidden equity value.",
+        risks: "- **Commodity Price Volatility** (Probability: 20%, Impact: Medium)\n- **Regulatory Interventions** (Probability: 15%, Impact: Medium)",
+        scenarios: "| Scenario | Assumption | Target | Probability |\n| :--- | :--- | :--- | :--- |\n| **Bull** | Aggressive FCF acceleration | " + targetPrice + " (+28%) | 30% |\n| **Base** | Steady double-digit growth | " + targetPrice + " (+18%) | 55% |\n| **Bear** | Input cost inflation | ₹2,250 (-10%) | 15% |"
+      });
+    }
+    if (u.includes('call5') || promptObj.user.includes('rating_change_conditions')) {
+      return JSON.stringify({
+        rating_change_conditions: "- **Downgrade**: If ROCE fails to exceed 12% across trailing quarters.\n- **Upgrade Target**: On formal announcement of shareholder subsidiary spin-offs.",
+        red_team_conclusion: "**Bear View**: Heavy ongoing capital investments could drag on asset turnover if macro consumer sentiment slows.",
+        final_verdict: "We initiate coverage with a **BUY** rating and an 18-month target price of **" + targetPrice + "** (+18.2% upside)."
+      });
+    }
+    return JSON.stringify({
+      ranking: [{ company: cName, verdict: "Clear winner on balance sheet stability and earnings resilience." }],
+      overall_conclusion: "Attractive risk-reward setup. Ideal for systematic multi-year portfolio allocation."
+    });
+  }
+
+  return "### Specialist Desk Finding\n- **Business Quality**: High barriers to entry with robust operating margins.\n- **Cash Flow**: Working capital cycle improved by 12 days year-over-year.\n- **Conclusion**: Solid fundamental earnings visibility.";
+}
+
+function buildContextBlockCore(out){
+  return [
+    ['FUNDAMENTAL', out.fundamental],
+    ['INDUSTRY', out.industry],
+    ['MANAGEMENT', out.management],
+    ['RISK', out.eventrisk],
+    ['FINANCIAL MODEL', out.financial_model],
+    ['VALUATION', out.valuation]
+  ].map(p => '=== ' + p[0] + ' ===\n' + (p[1] || '')).join('\n\n');
+}
+
+function buildContextBlockFull(out){
+  let b = buildContextBlockCore(out);
+  if (out.red_team) b += '\n\n=== RED TEAM ===\n' + out.red_team;
+  if (out.qa) b += '\n\n=== QA NOTES ===\n' + out.qa;
+  return b;
+}
+
+function fundamentalPrompt(company, rq){
+  return { system: 'You are Fundamental Analyst. ' + HOUSE_RULES, user: `Company: ${company.name}.\nAssignment: ${rq}\nAssess revenue streams, 3-year margins, ROCE, FCF, strengths, weaknesses.` };
+}
+function industryPrompt(company, rq, scopeNotes){
+  return { system: 'You are Industry Analyst. ' + HOUSE_RULES, user: `Company: ${company.name}.\nAssignment: ${rq}\nScope: ${scopeNotes}\nAssess moat, market share vs top 2 peers, structural growth.` };
+}
+function managementPrompt(company, rq){
+  return { system: 'You are Management & Governance Analyst. ' + HOUSE_RULES, user: `Company: ${company.name}.\nAssignment: ${rq}\nAssess management execution, capital allocation, governance score, red flags.` };
+}
+function eventRiskPrompt(company, rq){
+  return { system: 'You are Catalyst & Risk Analyst. ' + HOUSE_RULES, user: `Company: ${company.name}.\nAssignment: ${rq}\nIdentify 3-12mo catalysts, 1-3y catalysts, downside risks with impact.` };
+}
+function financialModelPrompt(company, rq, f, ind){
+  return { system: 'You are Modeling Analyst. ' + HOUSE_RULES, user: `Company: ${company.name}.\nModel 3-year forward Base/Bull/Bear revenue and EBITDA margins.\n\nFundamentals:\n${f}\n\nIndustry:\n${ind}` };
+}
+function valuationPrompt(company, rq, m, ind){
+  return { system: 'You are Valuation Specialist. ' + HOUSE_RULES, user: `Company: ${company.name}.\nDetermine fair value, multiples, peer benchmarking.\n\nModel:\n${m}\n\nIndustry:\n${ind}` };
+}
+function redTeamPrompt(company, rq, out){
+  return { system: 'You are independent Red Team Analyst. Break the thesis. ' + HOUSE_RULES, user: `Company: ${company.name}.\nPackage:\n${buildContextBlockCore(out)}\nDeliver strongest bear case.` };
+}
+function qaPrompt(company, rq, out){
+  return { system: 'You are Research Editor & QA. Audit the package. ' + HOUSE_RULES, user: `Company: ${company.name}.\nFull Package:\n${buildContextBlockFull(out)}\nAudit for bias and inconsistencies.` };
+}
+function comparisonPrompt(results, rq){
+  const summaries = results.map(r => `### ${r.companyMeta.name}\nRecommendation: ${r.sections?.recommendation}\nTarget: ${r.sections?.target_price}\nThesis: ${(r.sections?.thesis || []).join('; ')}`).join('\n\n');
+  return { system: 'Compare and rank companies. Respond with ONLY valid JSON.', user: `Question: "${rq}"\n\nResults:\n${summaries}\n\nProduce JSON: {"ranking": [{"company": "name", "verdict": "reason"}], "overall_conclusion": "markdown"}` };
+}
+async function scopeResearch(question){
+  const system = 'Classify request as "company", "comparative", or "sector". Respond with ONLY JSON: {"mode": "company"|"comparative"|"sector", "companies": [{"name": "", "ticker": "", "exchange": ""}], "research_question": "string", "scope_notes": "string"}';
+  const text = await callAgent({ system: system, user: `Question: "${question}"` });
+  return extractJson(text);
+}
+
+async function runSynthesis(company, rq, out, onProgress){
+  const ctx = buildContextBlockFull(out);
+  const header = `Company: ${company.name}.\nQuestion: "${rq}"\n\nResearch Package:\n${ctx}\n\n`;
+  const tasks = [
+    { key: 'call1', prompt: CALL1_TASK },
+    { key: 'call2', prompt: CALL2_TASK },
+    { key: 'call3', prompt: CALL3_TASK },
+    { key: 'call4', prompt: CALL4_TASK },
+    { key: 'call5', prompt: CALL5_TASK }
+  ];
+  const sections = {};
+  for (let i = 0; i < tasks.length; i++){
+    onProgress(i);
+    try {
+      const text = await callAgent({ system: SYNTH_SYSTEM, user: header + tasks[i].prompt });
+      Object.assign(sections, extractJson(text));
+    } catch(err) {
+      sections['_err_' + i] = err.message;
+    }
+  }
+  onProgress(tasks.length);
+  return sections;
+}
+
+async function runCompanyPipeline(company, idx, rq, scopeNotes){
+  const out = AGENT_OUTPUTS[idx];
+  async function step(key, p){
+    setStep(idx, key, 'running');
+    try {
+      const text = await callAgent(p);
+      out[key] = text;
+      setStep(idx, key, 'done');
+      return text;
+    } catch(err) {
+      const msg = '_Note: ' + err.message + '_';
+      out[key] = msg;
+      setStep(idx, key, 'error');
+      return msg;
+    }
+  }
+
+  const [f, ind] = await Promise.all([
+    step('fundamental', fundamentalPrompt(company, rq)),
+    step('industry', industryPrompt(company, rq, scopeNotes)),
+    step('management', managementPrompt(company, rq)),
+    step('eventrisk', eventRiskPrompt(company, rq))
+  ]);
+
+  const model = await step('financial_model', financialModelPrompt(company, rq, f, ind));
+  await step('valuation', valuationPrompt(company, rq, model, ind));
+  await step('red_team', redTeamPrompt(company, rq, out));
+  await step('qa', qaPrompt(company, rq, out));
+
+  setStep(idx, 'synthesis', 'running', '0/5');
+  const sections = await runSynthesis(company, rq, out, n => setStep(idx, 'synthesis', 'running', n + '/5'));
+  setStep(idx, 'synthesis', 'done');
+
+  return { companyMeta: company, agentOutputs: out, sections: sections };
+}
+
+async function startResearch(question, isDemo = false){
+  if (!question || !question.trim()) return;
+  IS_DEMO_MODE = isDemo;
+  setBeginBusy(true);
+  showStage('pipeline');
+  const pipelineEl = document.getElementById('pipeline');
+  pipelineEl.innerHTML = '<div class="scope-row"><span class="step-marker" id="scope-marker">-</span><span class="step-label">Research Director — scoping assignment</span><span class="step-extra" id="scope-extra"></span></div><div id="desks-holder"></div>';
+  setMarker('scope-marker', 'running');
+
+  try {
+    const plan = await scopeResearch(question);
+    setMarker('scope-marker', 'done');
+    const scopeExtra = document.getElementById('scope-extra');
+    if (scopeExtra) scopeExtra.textContent = plan.scope_notes || '';
+
+    let companies = (plan.companies || []).filter(c => c && c.name);
+    if (!companies.length) throw new Error('Could not identify a company to research from this question.');
+    companies = companies.slice(0, plan.mode === 'company' ? 1 : 3);
+
+    COMPANIES = companies;
+    AGENT_OUTPUTS = {};
+    companies.forEach((c, i) => { AGENT_OUTPUTS[i] = {}; });
+    buildPipelineColumns(companies);
+
+    const rq = plan.research_question || question;
+    const results = await Promise.all(companies.map((c, i) => runCompanyPipeline(c, i, rq, plan.scope_notes).catch(err => ({ error: err.message, companyMeta: c }))));
+
+    let comparison = null;
+    if (companies.length > 1){
+      try {
+        const text = await callAgent(comparisonPrompt(results, rq));
+        comparison = extractJson(text);
+      } catch(e){}
+    }
+
+    renderFinalReport({ plan: plan, results: results, comparison: comparison, question: question });
+  } catch(err) {
+    setMarker('scope-marker', 'error');
+    const box = document.createElement('div');
+    box.className = 'fatal-error';
+    box.innerHTML = '<p><strong>Research Error:</strong> ' + escapeHtml(err.message) + '</p><p style="font-size:13px;color:var(--ink-soft);margin-top:4px;">Tip: Click <strong>"Instant Demo Mode"</strong> to test the 8-desk workflow without needing an API key.</p>';
+    const retry = document.createElement('button');
+    retry.className = 'btn-secondary';
+    retry.textContent = 'Back';
+    retry.addEventListener('click', resetToIntake);
+    box.appendChild(retry);
+    pipelineEl.appendChild(box);
+  } finally {
+    setBeginBusy(false);
+  }
+}
+
+function deskColumnHtml(c, i){
+  const steps = STEP_ORDER.map(k => `
+    <li class="desk-step">
+      <button class="step-row" id="s-${i}-${k}" data-idx="${i}" data-key="${k}" disabled>
+        <span class="step-marker">-</span>
+        <span class="step-label">${STEP_LABELS[k]}</span>
+        <span class="step-extra"></span>
+      </button>
+      <div class="step-panel" id="p-${i}-${k}" hidden></div>
+    </li>
+  `).join('');
+  return `<div class="desk-column"><h3 class="desk-company">${escapeHtml(c.name)} <span class="ticker">${escapeHtml(c.ticker || '')}</span></h3><ol class="desk-steps">${steps}</ol></div>`;
+}
+
+function buildPipelineColumns(companies){
+  const holder = document.getElementById('desks-holder');
+  holder.innerHTML = `<div class="desks-grid" style="--cols:${companies.length}">${companies.map(deskColumnHtml).join('')}</div>`;
+  holder.addEventListener('click', e => {
+    const btn = e.target.closest('.step-row');
+    if (!btn || btn.disabled) return;
+    const p = document.getElementById(`p-${btn.dataset.idx}-${btn.dataset.key}`);
+    if (!p) return;
+    if (p.hidden){
+      if (!p.dataset.filled){
+        p.innerHTML = mdToHtml((AGENT_OUTPUTS[btn.dataset.idx] || {})[btn.dataset.key] || '(pending)');
+        p.dataset.filled = '1';
+      }
+      p.hidden = false;
+    } else {
+      p.hidden = true;
+    }
+  });
+}
+
+function setStep(idx, key, status, extra){
+  const btn = document.getElementById(`s-${idx}-${key}`);
+  if (!btn) return;
+  const marker = btn.querySelector('.step-marker');
+  marker.className = 'step-marker ' + (status === 'queued' ? '' : status);
+  marker.textContent = status === 'running' ? '●' : status === 'done' ? '✓' : status === 'error' ? '!' : '-';
+  btn.querySelector('.step-extra').textContent = extra || '';
+  if (key !== 'synthesis' && (status === 'done' || status === 'error')) btn.disabled = false;
+}
+
+function setMarker(id, status){
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'step-marker ' + (status === 'queued' ? '' : status);
+  el.textContent = status === 'running' ? '●' : status === 'done' ? '✓' : status === 'error' ? '!' : '-';
+}
+
+function renderFinalReport(ctx){
+  showStage('report');
+  const container = document.getElementById('report');
+  const plan = ctx.plan, results = ctx.results, comparison = ctx.comparison;
+  let html = `<div class="report-head"><h2>${escapeHtml(plan.research_question || ctx.question)}</h2><p class="scope-note">${escapeHtml(plan.scope_notes || '')}</p></div>`;
+
+  if (comparison){
+    html += `<section class="comparison-card"><h3>Comparative Verdict</h3><ol class="ranking-list">${(comparison.ranking || []).map(r => `<li><strong>${escapeHtml(r.company)}</strong> — ${escapeHtml(r.verdict)}</li>`).join('')}</ol>${mdToHtml(comparison.overall_conclusion)}</section>`;
+  }
+
+  if (results.length > 1){
+    html += `<div class="tabs">${results.map((r, i) => `<button class="tab${i === 0 ? ' active' : ''}" data-tab="${i}">${escapeHtml(r.companyMeta.name)}</button>`).join('')}</div>`;
+  }
+
+  html += `<div id="report-panels">${results.map((r, i) => `
+    <div class="report-panel" data-panel="${i}" ${i === 0 ? '' : 'hidden'}>
+      ${r.error ? `<p class="fatal-error">${escapeHtml(r.error)}</p>` : renderCompanyReport(r.companyMeta, r.sections, r.agentOutputs)}
+    </div>
+  `).join('')}</div>`;
+
+  html += `<div class="disclaimer">Institutional research note generated via multi-agent specialist pipeline. Verify against official filings before capital deployment.</div><button class="btn-secondary" id="new-research">Start New Research</button>`;
+  container.innerHTML = html;
+
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.report-panel').forEach(p => { p.hidden = (p.dataset.panel !== btn.dataset.tab); });
+    });
+  });
+  document.getElementById('new-research')?.addEventListener('click', resetToIntake);
+}
+
+function renderCompanyReport(company, s = {}, agentOutputs = {}){
+  const recClass = (s.recommendation || 'buy').toLowerCase();
+  return `
+    <article class="note">
+      <div class="hero hero--${recClass}">
+        <div class="hero-rec">${escapeHtml(s.recommendation || 'BUY')}</div>
+        <dl class="hero-stats">
+          <div><dt>Current Price</dt><dd class="mono">${escapeHtml(s.current_price || '—')}</dd></div>
+          <div><dt>Target Price</dt><dd class="mono">${escapeHtml(s.target_price || '—')}</dd></div>
+          <div><dt>Upside Potential</dt><dd class="mono">${escapeHtml(s.upside_pct || '—')}</dd></div>
+          <div><dt>Horizon</dt><dd>${escapeHtml(s.horizon || '12-18 months')}</dd></div>
+          <div><dt>Confidence</dt><dd>${escapeHtml(s.confidence || 'HIGH')}</dd></div>
+        </dl>
+      </div>
+
+      <section class="note-section">
+        <h3>Investment Thesis</h3>
+        <ul>${(s.thesis || []).map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
+        <p class="market-missing"><strong>What Market May Be Missing:</strong> ${escapeHtml(s.market_missing || '—')}</p>
+      </section>
+
+      <section class="note-section"><h3>Why This Could Work</h3>${mdToHtml(s.why_this_could_work)}</section>
+      <section class="note-section"><h3>Financial Outlook</h3>${mdToHtml(s.financial_outlook)}</section>
+      <section class="note-section"><h3>Valuation Framework</h3>${mdToHtml(s.valuation)}</section>
+      <section class="note-section"><h3>Industry & Competitive Moat</h3>${mdToHtml(s.industry_position)}</section>
+      <section class="note-section"><h3>Management & Capital Allocation</h3>${mdToHtml(s.management_governance)}</section>
+      <section class="note-section"><h3>Key Catalysts</h3>${mdToHtml(s.catalysts)}</section>
+      <section class="note-section"><h3>Downside Risks</h3>${mdToHtml(s.risks)}</section>
+      <section class="note-section"><h3>Bull / Base / Bear Scenarios</h3>${mdToHtml(s.scenarios)}</section>
+      <section class="note-section"><h3>Rating Triggers</h3>${mdToHtml(s.rating_change_conditions)}</section>
+      <section class="note-section note-section--redteam"><h3>Red Team Counter-Thesis</h3>${mdToHtml(s.red_team_conclusion)}</section>
+      <section class="note-section note-section--verdict"><h3>Final Director Verdict</h3>${mdToHtml(s.final_verdict)}</section>
+
+      <details class="desk-notes">
+        <summary>View Underlying Specialist Desk Notes</summary>
+        ${STEP_ORDER.filter(k => k !== 'synthesis').map(k => `
+          <div class="desk-note">
+            <h4>${STEP_LABELS[k]}</h4>
+            ${mdToHtml((agentOutputs || {})[k])}
+          </div>
+        `).join('')}
+      </details>
+    </article>
+  `;
+}
+
+function showStage(name){
+  document.getElementById('intake').hidden = name !== 'intake';
+  document.getElementById('pipeline').hidden = name !== 'pipeline';
+  document.getElementById('report').hidden = name !== 'report';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function setBeginBusy(busy){
+  const b = document.getElementById('begin-btn');
+  const d = document.getElementById('demo-btn');
+  if (b) { b.disabled = busy; b.textContent = busy ? 'Researching…' : 'Begin live research'; }
+  if (d) d.disabled = busy;
+}
+function resetToIntake(){
+  showStage('intake');
+  document.getElementById('pipeline').innerHTML = '';
+  document.getElementById('report').innerHTML = '';
+  COMPANIES = [];
+  AGENT_OUTPUTS = {};
+  setBeginBusy(false);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('dateline').textContent = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+  
+  const savedKey = localStorage.getItem('anthropic_api_key') || '';
+  const keyInput = document.getElementById('api-key-input');
+  const keyStatus = document.getElementById('key-status');
+  if (savedKey && keyInput) {
+    keyInput.value = savedKey;
+    keyStatus.textContent = '✓ Saved in browser';
+    keyStatus.style.color = 'var(--buy)';
+  }
+
+  document.getElementById('save-key-btn')?.addEventListener('click', () => {
+    const val = keyInput.value.trim();
+    if (val) {
+      localStorage.setItem('anthropic_api_key', val);
+      keyStatus.textContent = '✓ Saved in browser';
+      keyStatus.style.color = 'var(--buy)';
+    } else {
+      localStorage.removeItem('anthropic_api_key');
+      keyStatus.textContent = 'Key cleared';
+      keyStatus.style.color = 'var(--ink-soft)';
+    }
+  });
+
+  document.querySelectorAll('.chip:not(#save-key-btn)').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const q = document.getElementById('question');
+      q.value = chip.textContent;
+      q.focus();
+    });
+  });
+
+  document.getElementById('begin-btn')?.addEventListener('click', () => {
+    const q = document.getElementById('question').value.trim();
+    if (!q){ document.getElementById('question').focus(); return; }
+    startResearch(q, false);
+  });
+
+  document.getElementById('demo-btn')?.addEventListener('click', () => {
+    const q = document.getElementById('question').value.trim() || "What's the recommendation on Reliance Industries?";
+    document.getElementById('question').value = q;
+    startResearch(q, true);
+  });
+});
+</script>
+</body>
+</html>
